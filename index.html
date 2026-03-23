@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IndicadoresRDC — MAKRO Supermayorista</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ══ LOGIN ══════════════════════════════════════════════════════ -->
+<div id="login-screen" style="display:flex;position:fixed;inset:0;
+  background:linear-gradient(135deg,#060e1c 0%,#0f2040 40%,#1a3a6b 100%);
+  z-index:9999;align-items:center;justify-content:center;flex-direction:column">
+
+  <!-- Círculos decorativos de fondo -->
+  <div style="position:absolute;width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(46,116,232,.18) 0%,transparent 70%);
+    top:-100px;right:-100px;pointer-events:none"></div>
+  <div style="position:absolute;width:400px;height:400px;border-radius:50%;
+    background:radial-gradient(circle,rgba(46,116,232,.12) 0%,transparent 70%);
+    bottom:-80px;left:-80px;pointer-events:none"></div>
+
+  <!-- Logo superior -->
+  <div style="text-align:center;margin-bottom:32px;position:relative">
+    <div style="font-size:42px;font-weight:900;color:#fff;letter-spacing:-2px;
+      text-shadow:0 2px 20px rgba(46,116,232,.5)">makro</div>
+    <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.5);
+      letter-spacing:.25em;margin-top:6px">SUPERMAYORISTA</div>
+  </div>
+
+  <!-- Card de login -->
+  <div style="background:rgba(255,255,255,.97);border-radius:20px;padding:40px 38px;
+    width:400px;max-width:94vw;box-shadow:0 30px 80px rgba(0,0,0,.5);position:relative">
+
+    <!-- Barra superior de color -->
+    <div style="position:absolute;top:0;left:0;right:0;height:4px;
+      background:linear-gradient(90deg,#2e74e8,#0fa8cc);border-radius:20px 20px 0 0"></div>
+
+    <div style="text-align:center;margin-bottom:28px">
+      <div style="display:inline-flex;align-items:center;justify-content:center;
+        width:56px;height:56px;border-radius:14px;
+        background:linear-gradient(135deg,#1a3a6b,#2e74e8);margin-bottom:14px;
+        box-shadow:0 8px 20px rgba(46,116,232,.35)">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div style="font-size:20px;font-weight:800;color:#1a1f2e">IndicadoresRDC</div>
+      <div style="font-size:11px;color:#8490a8;margin-top:4px">Área Clientes · Makro Supermayorista</div>
+    </div>
+
+    <div style="margin-bottom:16px">
+      <label style="font-size:10px;font-weight:700;color:#8490a8;text-transform:uppercase;
+        letter-spacing:.08em;display:block;margin-bottom:6px">Usuario</label>
+      <div style="position:relative">
+        <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.4"
+          width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="#1a1f2e" stroke-width="2"/>
+          <circle cx="12" cy="7" r="4" stroke="#1a1f2e" stroke-width="2"/>
+        </svg>
+        <input id="l-user" type="text" placeholder="Ingresa tu usuario" autocomplete="username"
+          style="width:100%;padding:12px 14px 12px 38px;border:1.5px solid #e2e6f0;border-radius:10px;
+          font-family:Inter,sans-serif;font-size:14px;color:#1a1f2e;outline:none;
+          box-sizing:border-box;transition:border-color .2s"
+          onfocus="this.style.borderColor='#2e74e8';this.style.boxShadow='0 0 0 3px rgba(46,116,232,.12)'"
+          onblur="this.style.borderColor='#e2e6f0';this.style.boxShadow='none'"
+          onkeydown="if(event.key==='Enter')document.getElementById('l-pass').focus()">
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px">
+      <label style="font-size:10px;font-weight:700;color:#8490a8;text-transform:uppercase;
+        letter-spacing:.08em;display:block;margin-bottom:6px">Contraseña</label>
+      <div style="position:relative">
+        <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.4"
+          width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="11" width="18" height="11" rx="2" stroke="#1a1f2e" stroke-width="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#1a1f2e" stroke-width="2"/>
+        </svg>
+        <input id="l-pass" type="password" placeholder="Ingresa tu contraseña"
+          autocomplete="current-password"
+          style="width:100%;padding:12px 14px 12px 38px;border:1.5px solid #e2e6f0;border-radius:10px;
+          font-family:Inter,sans-serif;font-size:14px;color:#1a1f2e;outline:none;
+          box-sizing:border-box;transition:border-color .2s"
+          onfocus="this.style.borderColor='#2e74e8';this.style.boxShadow='0 0 0 3px rgba(46,116,232,.12)'"
+          onblur="this.style.borderColor='#e2e6f0';this.style.boxShadow='none'"
+          onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+    </div>
+
+    <div id="l-err" style="display:none;background:#fff0f0;border:1px solid #ffd0d0;
+      border-radius:8px;padding:10px 14px;font-size:12px;color:#cc3333;margin-bottom:14px;
+      display:none;align-items:center;gap:8px">
+      <span>⚠</span> Usuario o contraseña incorrectos
+    </div>
+
+    <button onclick="doLogin()"
+      style="width:100%;padding:14px;
+      background:linear-gradient(135deg,#1a3a6b 0%,#2e74e8 100%);
+      border:none;border-radius:11px;color:#fff;font-family:Inter,sans-serif;font-size:15px;
+      font-weight:700;cursor:pointer;margin-top:4px;
+      box-shadow:0 8px 24px rgba(46,116,232,.4);
+      transition:all .2s;letter-spacing:.02em"
+      onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 12px 30px rgba(46,116,232,.5)'"
+      onmouseout="this.style.transform='none';this.style.boxShadow='0 8px 24px rgba(46,116,232,.4)'">
+      Ingresar al sistema →
+    </button>
+
+    <div style="text-align:center;margin-top:20px;font-size:11px;color:#b0bcd0">
+      🔒 Acceso restringido &nbsp;·&nbsp; Makro 2026
+    </div>
+  </div>
+</div>
+
+<!-- ══ APP ═════════════════════════════════════════════════════════ -->
+<div id="app-wrapper" style="display:none;width:100%;height:100vh;overflow:hidden">
+<aside id="sidebar">
+  <div class="sb-logo">
+    <div class="sb-brand">IndicadoresRDC</div>
+    <div class="sb-sub">MAKRO SUPERMAYORISTA</div>
+    <div class="sb-clock" id="sb-clock"></div>
+  </div>
+  <div class="sb-section-label">NAVEGACIÓN</div>
+  <nav id="sb-nav">
+    <button class="nav-btn active" onclick="navigateTo('tables')"><span class="nav-dot"></span>Tablas de Datos</button>
+    <button class="nav-btn" onclick="navigateTo('dashboard')"><span class="nav-dot"></span>Dashboard</button>
+    <button class="nav-btn" onclick="navigateTo('summary')"><span class="nav-dot"></span>Resumen Ejecutivo</button>
+  </nav>
+  <div class="sb-section-label" style="margin-top:18px">RESUMEN RÁPIDO</div>
+  <div class="sb-stats" id="sb-stats"></div>
+  <div class="sb-spacer"></div>
+  <div class="sb-actions">
+    <button class="sb-btn sb-save" onclick="saveState();showToast('✅ Datos guardados correctamente')">💾 Guardar Actualizaciones</button>
+    <button class="sb-btn sb-refresh" onclick="onActualizar()">⟳ Actualizar Vistas</button>
+    <button class="sb-btn sb-logout" onclick="doLogout()">⎋ Cerrar Sesión</button>
+  </div>
+  <div class="sb-footer" style="display:flex;align-items:center;justify-content:space-between"><span id="nav-user" style="color:#7090c0;font-size:9px"></span><button onclick="doLogout()" style="background:rgba(204,51,51,.15);border:none;color:#e07070;font-size:9px;font-weight:700;padding:4px 9px;border-radius:5px;cursor:pointer;font-family:Inter,sans-serif">SALIR</button></div>
+</aside>
+
+<main id="main">
+  <!-- TABLAS -->
+  <section class="view active" id="view-tables">
+    <div class="topbar">
+      <div class="topbar-left"><div class="page-title">Tablas de Datos</div><div class="page-sub">Indicadores de cliente · Marzo 2026</div></div>
+      <div class="topbar-actions">
+        <button class="btn c1" onclick="onActualizar()">⟳ Actualizar</button>
+        <button class="btn c2" onclick="openModal('modal-edit')">✎ Editar</button>
+        <button class="btn c3" onclick="openModal('modal-create')">＋ Tabla</button>
+        <button class="btn c6" onclick="openModal('modal-addrow')">＋ Fila</button>
+        <button class="btn c4" onclick="openModal('modal-editcols')">✎ Columnas</button>
+        <button class="btn c5" onclick="openModal('modal-addcol')">＋ Columna</button>
+        <button class="btn cr" onclick="openModal('modal-deltable')">🗑 Tabla</button>
+        <button class="btn crr" onclick="openModal('modal-delrow')">✕ Fila</button>
+      </div>
+    </div>
+    <div class="view-body" id="tables-body"></div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section class="view" id="view-dashboard">
+    <div class="topbar">
+      <div class="topbar-left"><div class="page-title">Dashboard</div><div class="page-sub">Visualización gráfica · Marzo 2026</div></div>
+      <div class="topbar-actions"><button class="btn c1" onclick="onActualizar()">⟳ Actualizar</button></div>
+    </div>
+    <div class="view-body">
+      <div class="kpi-grid" id="kpi-grid"></div>
+      <div class="chart-row" id="chart-row-1"></div>
+      <div class="chart-row" id="chart-row-2"></div>
+      <div id="chart-cumpl-wrap"></div>
+      <div id="custom-charts-area"></div>
+    </div>
+  </section>
+
+  <!-- RESUMEN -->
+  <section class="view" id="view-summary">
+    <div class="topbar">
+      <div class="topbar-left"><div class="page-title">Resumen Ejecutivo</div><div class="page-sub">Diagnóstico global · Marzo 2026</div></div>
+      <div class="topbar-actions"><button class="btn c1" onclick="onActualizar()">⟳ Actualizar</button></div>
+    </div>
+    <div class="view-body">
+      <div class="res-cards" id="res-cards"></div>
+      <div id="semaforo-wrap" style="margin-top:20px"></div>
+    </div>
+  </section>
+</main>
+
+<!-- MODAL EDITAR TABLA -->
+<div class="modal-overlay" id="modal-edit">
+  <div class="modal" style="width:900px;max-width:96vw">
+    <div class="modal-hdr"><span>✎ Editar Tabla — todas las columnas</span><button class="mx" onclick="closeModal('modal-edit')">✕</button></div>
+    <div class="modal-body">
+      <div class="fg"><label class="fl">Selecciona una tabla</label>
+        <select class="fi" id="edit-table-sel" onchange="loadEditRows()">
+          <option value="">— Elige una tabla —</option>
+          <option value="carteras">CARTERAS</option><option value="clima">CLIMA MANDELA</option>
+          <option value="productividad">PRODUCTIVIDAD</option><option value="conversion">CONVERSIÓN</option>
+          <option value="visitas">VISITAS DIARIAS</option><option value="ventas">VENTAS</option>
+        </select>
+      </div>
+      <div id="edit-rows-container"></div>
+    </div>
+    <div class="modal-ftr">
+      <button class="btn ghost" onclick="closeModal('modal-edit')">Cancelar</button>
+      <button class="btn c2" id="btn-save-edit" style="display:none" onclick="saveEdit()">💾 Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CREAR TABLA -->
+<div class="modal-overlay" id="modal-create">
+  <div class="modal modal-wide">
+    <div class="modal-hdr"><span>＋ Nueva Tabla</span><button class="mx" onclick="closeModal('modal-create')">✕</button></div>
+    <div class="modal-body">
+      <div class="fg"><label class="fl">Nombre de la tabla</label><input class="fi" id="new-table-name" placeholder="Ej. NUEVO INDICADOR"></div>
+      <div class="form-row">
+        <div class="fg"><label class="fl">Columna 1</label><input class="fi" id="new-col1" value="Ítem" oninput="rebuildRowInputs()"></div>
+        <div class="fg"><label class="fl">Columna 2</label><input class="fi" id="new-col2" value="Valor" oninput="rebuildRowInputs()"></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label class="fl">Columna 3</label><input class="fi" id="new-col3" value="OBJ" oninput="rebuildRowInputs()"></div>
+        <div class="fg"><label class="fl">Columna 4</label><input class="fi" id="new-col4" value="Estado" oninput="rebuildRowInputs()"></div>
+      </div>
+      <div class="fg"><label class="fl">Color</label>
+        <div class="color-row" id="color-selector">
+          <div class="color-opt sel" data-hex="#2e74e8" style="background:#2e74e8" onclick="selectColor(this)"></div>
+          <div class="color-opt" data-hex="#e8622a" style="background:#e8622a" onclick="selectColor(this)"></div>
+          <div class="color-opt" data-hex="#17a55e" style="background:#17a55e" onclick="selectColor(this)"></div>
+          <div class="color-opt" data-hex="#9b4fd4" style="background:#9b4fd4" onclick="selectColor(this)"></div>
+          <div class="color-opt" data-hex="#c89a00" style="background:#c89a00" onclick="selectColor(this)"></div>
+          <div class="color-opt" data-hex="#0fa8cc" style="background:#0fa8cc" onclick="selectColor(this)"></div>
+        </div>
+      </div>
+      <div id="dyn-rows-section" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <label class="fl" style="margin:0">Filas iniciales</label>
+          <button class="btn ghost btn-sm" onclick="addNewRowInput()">＋ Añadir fila</button>
+        </div>
+        <div id="dyn-rows-container"></div>
+      </div>
+    </div>
+    <div class="modal-ftr">
+      <button class="btn ghost" onclick="closeModal('modal-create')">Cancelar</button>
+      <button class="btn c3" onclick="saveCreate()">＋ Crear Tabla</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL AGREGAR FILA -->
+<div class="modal-overlay" id="modal-addrow">
+  <div class="modal">
+    <div class="modal-hdr"><span>＋ Agregar Fila</span><button class="mx" onclick="closeModal('modal-addrow')">✕</button></div>
+    <div class="modal-body">
+      <div class="fg"><label class="fl">Selecciona una tabla</label>
+        <select class="fi" id="addrow-table-sel" onchange="loadAddRowForm()">
+          <option value="">— Elige una tabla —</option>
+          <option value="carteras">CARTERAS</option><option value="clima">CLIMA MANDELA</option>
+          <option value="productividad">PRODUCTIVIDAD</option><option value="conversion">CONVERSIÓN</option>
+          <option value="visitas">VISITAS DIARIAS</option><option value="ventas">VENTAS</option>
+        </select>
+      </div>
+      <div id="addrow-form"></div>
+    </div>
+    <div class="modal-ftr">
+      <button class="btn ghost" onclick="closeModal('modal-addrow')">Cancelar</button>
+      <button class="btn c6" id="btn-save-addrow" style="display:none" onclick="saveAddRow()">＋ Agregar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EDITAR COLUMNAS -->
+<div class="modal-overlay" id="modal-editcols">
+  <div class="modal">
+    <div class="modal-hdr"><span>✎ Editar Columnas</span><button class="mx" onclick="closeModal('modal-editcols')">✕</button></div>
+    <div class="modal-body">
+      <div class="info-box">Agrega una nueva columna a cualquier tabla (base o personalizada).</div>
+      <div class="fg"><label class="fl">Selecciona una tabla personalizada</label>
+        <select class="fi" id="editcols-sel" onchange="loadEditColsForm()"><option value="">— Elige —</option></select>
+      </div>
+      <div id="editcols-form"></div>
+    </div>
+    <div class="modal-ftr">
+      <button class="btn ghost" onclick="closeModal('modal-editcols')">Cancelar</button>
+      <button class="btn c4" id="btn-save-cols" style="display:none" onclick="saveEditCols()">💾 Guardar Columnas</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL AGREGAR COLUMNA -->
+<div class="modal-overlay" id="modal-addcol">
+  <div class="modal">
+    <div class="modal-hdr"><span>＋ Agregar Columna</span><button class="mx" onclick="closeModal('modal-addcol')">✕</button></div>
+    <div class="modal-body">
+      <div class="info-box">Agrega una nueva columna a cualquier tabla (base o personalizada).</div>
+      <div class="fg"><label class="fl">Selecciona una tabla personalizada</label>
+        <select class="fi" id="addcol-sel"><option value="">— Elige —</option></select>
+      </div>
+      <div class="fg"><label class="fl">Nombre de la nueva columna</label><input class="fi" id="addcol-name" placeholder="Ej. Observaciones"></div>
+      <div class="fg"><label class="fl">Valor por defecto para filas existentes</label><input class="fi" id="addcol-default" value="—"></div>
+    </div>
+    <div class="modal-ftr">
+      <button class="btn ghost" onclick="closeModal('modal-addcol')">Cancelar</button>
+      <button class="btn c5" onclick="saveAddCol()">＋ Agregar Columna</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ELIMINAR TABLA -->
+<div class="modal-overlay" id="modal-deltable">
+  <div class="modal">
+    <div class="modal-hdr"><span>🗑 Eliminar Tabla</span><button class="mx" onclick="closeModal('modal-deltable')">✕</button></div>
+    <div class="modal-body">
+      <div class="info-box warn">Solo se pueden eliminar tablas personalizadas.</div>
+      <div class="fg"><label class="fl">Selecciona la tabla a eliminar</label>
+        <select class="fi" id="deltable-sel"><option value="">— Elige —</option></select>
+      </div>
+    </div>
+    <div class="modal-ftr">
+      <button class="btn ghost" onclick="closeModal('modal-deltable')">Cancelar</button>
+      <button class="btn cr" onclick="saveDelTable()">🗑 Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ELIMINAR FILA -->
+<div class="modal-overlay" id="modal-delrow">
+  <div class="modal">
+    <div class="modal-hdr"><span>✕ Eliminar Fila</span><button class="mx" onclick="closeModal('modal-delrow')">✕</button></div>
+    <div class="modal-body">
+      <div class="fg"><label class="fl">Paso 1 — Selecciona la tabla</label>
+        <select class="fi" id="delrow-table-sel" onchange="loadDelRowForm()">
+          <option value="">— Elige una tabla —</option>
+          <option value="carteras">CARTERAS</option><option value="clima">CLIMA MANDELA</option>
+          <option value="productividad">PRODUCTIVIDAD</option><option value="conversion">CONVERSIÓN</option>
+          <option value="visitas">VISITAS DIARIAS</option><option value="ventas">VENTAS</option>
+        </select>
+      </div>
+      <div id="delrow-form"></div>
+    </div>
+    <div class="modal-ftr">
+      <button class="btn ghost" onclick="closeModal('modal-delrow')">Cancelar</button>
+      <button class="btn crr" id="btn-save-delrow" style="display:none" onclick="saveDelRow()">✕ Eliminar</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /app-wrapper -->
+
+</div><!-- /app-wrapper -->
+<div id="toast"></div>
+<script src="app.js"></script>
+
+</body>
+</html>
